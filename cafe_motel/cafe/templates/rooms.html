@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<style>
+
+    
+
+        body {
+
+            font-family: Arial, sans-serif;
+    
+            margin: 0;
+    
+            padding: 0;
+    
+            background-color: #f9f9f9;
+    
+    }
+    
+    
+    header {
+    
+        background-color: #333;
+    
+        color: #fff;
+    
+        padding: 10px 20px;
+    
+    }
+    
+    
+    nav ul {
+    
+        list-style-type: none;
+    
+        padding: 0;
+    
+    }
+    
+    
+    nav ul li {
+    
+        display: inline;
+    
+        margin-right: 10px;
+    
+    }
+    
+    
+    a.head {
+    
+        color: #fff;
+    
+        text-decoration: none;
+    
+    }
+    
+    
+    main {
+    
+        max-width: 800px;
+    
+        margin: 20px auto;
+    
+        padding: 0 20px;
+    
+    }
+    
+    
+    footer {
+    
+        background-color: #333;
+    
+        color: #fff;
+    
+        text-align: center;
+    
+        padding: 10px 0;
+    
+    }
+
+    
+
+    
+
+    .container {
+
+        max-width: 500px;
+
+        margin: 50px auto;
+
+        padding: 20px;
+
+        background-color: #fff;
+
+        border-radius: 10px;
+
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    }
+
+    h1 {
+
+        text-align: center;
+
+        color: white;
+
+    }
+
+    form {
+
+        display: grid;
+
+        gap: 10px;
+
+    }
+
+    label {
+
+        font-weight: bold;
+
+    }
+
+    input, button {
+
+        padding: 10px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 5px;
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+    }
+
+    button {
+
+        background-color: #007bff;
+
+        color: white;
+
+        cursor: pointer;
+        
+    }
+    a.button {
+        padding: 10px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 5px;
+
+        width: 100%;
+
+        box-sizing: border-box;
+        background-color: #007bff;
+
+        color: white;
+
+        cursor: pointer;
+
+    }
+</style>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Гостиница "Автохофф"</h1>
+
+        <nav>
+
+            <ul>
+
+                <li><a href="{% url 'home' %}" class='head'>Домой</a></li>
+
+                
+
+                <li><a href="#" class='head'>Контакты</a></li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section class="room-selection">
+           
+            <div class="container">               
+                <div class="row">
+                {% for room in rooms %}
+                <div class="col-md-4">
+                <h3 class="card-title">{{ room.room_number }}</h3>
+                <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.room_number }}">
+                <div class="card-body">
+                
+                <p class="card-text">{{ room.amenities }}</p>
+                <p>Цена: {{ room.price_per_night }}</p>
+                {% if user.is_authenticated %}
+                
+                <form action="{% url 'book_room' %}" method="post">
+                        {% csrf_token %}
+                        <ul>
+               
+                        <label for="check_in_date">Дата заезда:</label>                    
+
+                        <input type="date" id="check_in_date" name="check_in_date" required>
+            
+                        <label for="check_out_date">Дата выезда:</label>
+            
+                        <input type="date" id="check_out_date" name="check_out_date">
+            
+                        <label for="contact_info">Номер телефона:</label>
+            
+                        <input type="tel" id="contact_info" name="contact_info" pattern="[+]?[78][0-9]{10}" placeholder="Введите номер телефона" required>
+            
+                        <label for="user_name">ФИО проживающего:</label>
+            
+                        <input type="text" id="user_name" name="user_name" placeholder="Введите ФИО" required>
+    
+                        <input type="hidden" name="room" value="{{ room.id }}">
+            
+                        <button type="submit">Забронировать</button>
+                        </ul>                
+                    </form>
+                {% else %}                
+                <a href="{% url 'login' %}" class="button">Забронировать</a>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+                {% endfor %}
+                </div>
+                </div>
+           
+
+        </section>
+
+        
+
+    </main>
+
+    <footer>
+
+        <p>&copy; 2024 Гостиница "Автохофф". Все права защищены.</p>
+
+    </footer>
+
+</body>
+
+</html>

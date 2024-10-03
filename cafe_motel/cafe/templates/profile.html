@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Профиль</title>
+</head>
+<body>
+<h1>Профиль пользователя: {{ user.username }}</h1>
+<p>Email: {{ user.email }}</p>
+
+
+<h2>Бронирования пользователя:</h2>
+<ul>
+{% for booking in bookings %}
+<li>Номер: {{ booking.room.room_number }}, Дата заезда: {{ booking.check_in_date }}, Дата выезда: {{ booking.check_out_date }}</li>
+{% empty %}
+<li>Пользователь не сделал ни одного бронирования.</li>
+{% endfor %}
+</ul>
+</body>
+</html>

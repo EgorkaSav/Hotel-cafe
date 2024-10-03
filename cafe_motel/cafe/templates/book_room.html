@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бронирование номера</title>
+</head>
+<body>
+<h1>Бронирование номера</h1>
+
+<form method="post">
+    <form method="post" action="{% url 'book_room' %}">
+        {% csrf_token %}
+
+<ul>
+
+
+    <li><label for="check_in_date">Дата заезда</label></li>
+
+        <input type="date" id="check_in_date" name="check_in_date">
+
+            <li><label for="check_out_date">Дата выезда</label></li>
+
+                <input type="date" id="check_out_date" name="check_out_date">
+
+                    <li><label for="contact_info">Номер телефона:</label></li>
+
+                        <input type="text" id="contact_info" name="contact_info">
+
+                            <li><label for="user_name">ФИО проживающего:</label></li>
+
+                             <input type="text" id="user_name" name="user_name">           
+
+        <input type="submit" value="Забронировать">
+        </form>
+
+    </ul>
+</form>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<form action="{% url 'charge' %}" method="post">
+    <!— Поле для кредитной карты —>
+    <input type="text" name="card_number">
+    <!— Поле для CVC —>
+    <input type="text" name="cvc">
+    <!— Другие поля, такие как срок действия карты —>
+    <input type="text" name="exp_month">
+    <input type="text" name="exp_year">
+    <button type="submit">Submit Payment</button>
+    </form>
+
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+    // Код JavaScript для создания токена и отправки формы
+    </script>

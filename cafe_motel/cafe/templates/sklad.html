@@ -1,0 +1,165 @@
+
+
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Склад</title>
+
+    <style>
+
+        table {
+
+            width: 50%;
+
+            border-collapse: collapse;
+
+            margin-bottom: 20px;
+
+        }
+
+        table, th, td {
+
+            border: 1px solid black;
+
+        }
+
+        th, td {
+
+            padding: 10px;
+
+            text-align: left;
+
+        }
+
+        form {
+
+            width: 50%;
+
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 10px;
+
+            margin-bottom: 10px;
+
+        }
+
+        button {
+
+            padding: 10px;
+
+            background-color: #4CAF50;
+
+            color: white;
+
+            border: none;
+
+            cursor: pointer;
+
+        }
+        .forms-container {
+
+            display: grid;
+        
+            grid-template-columns: 1fr 1fr; /* Создает две колонки с равным распределением пространства */
+        
+            gap: 20px; /* Добавляет пространство между колонками */
+        
+          }
+        
+          .form-wrapper {
+        
+            padding: 10px; /* Добавляет немного пространства вокруг форм */
+        
+          }
+          header {
+    
+            background-color: #333;
+        
+            color: #fff;
+        
+            padding: 10px 20px;
+        
+        }
+        .other {
+
+            padding: 10px 20px;
+
+            background-color: white;
+
+            color: black;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <header>
+
+        <h1>Гостиница "Автохофф"</h1>      
+             <a href="{% url 'home' %}" class='other'>Домой</a>                
+    </header>
+    <h1>Склад</h1>
+    
+    <tbody>
+    <table>
+
+        {% for product in products %}
+        {% if product.kol_vo > 0  %}
+        <tr>
+            <td>{{ product.prod_name }}</td>
+            <td>{{ product.edin }}</td>
+            <td>{{ product.kol_vo }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+    </table>
+    <div class="forms-container">
+
+        <div class="form-wrapper">
+<h2>Приемка</h2>
+       
+        <form method="POST">
+            {% csrf_token %}
+            {{ form_a.as_p }}
+        <button type="submit" name="Receive">Добавить на склад</button>
+        </form>
+    </div>
+    <div class="form-wrapper">
+<h2>Выдача</h2>      
+        <form method="POST">
+            {% csrf_token %}
+            {{ form_b.as_p }}
+            
+        <button type="submit" name="Otgruz">Отгрузить со склада</button>
+        </form>
+    </div>
+</div>
+    
+
+</body>
+
+</html>
+
